@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Discite</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#F8F9FA;--panel:#fff;--ink:#182B49;--mute:#56667f;--line:#dde3ea;--acc:#FF6B35;--accsoft:#FFE6DB;--acctext:#B8430F;--green:#28A745;--tok:#1C7A32;--toksoft:#DDF3E3;--bad:#b4402f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1A2B;--panel:#182B49;--ink:#F8F9FA;--mute:#A9B7CC;--line:#2D4268;--acc:#FF6B35;--accsoft:#4A2A20;--acctext:#FF9A72;--green:#3FCB5E;--tok:#6EE08A;--toksoft:#16402A;--bad:#ef8a78;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F1A2B;--panel:#182B49;--ink:#F8F9FA;--mute:#A9B7CC;--line:#2D4268;--acc:#FF6B35;--accsoft:#4A2A20;--acctext:#FF9A72;--green:#3FCB5E;--tok:#6EE08A;--toksoft:#16402A;--bad:#ef8a78;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "DM Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",sans-serif;line-height:1.15;margin:0 0 .5rem}
+h1{font-size:1.5rem}h2{font-size:1.6rem}h3{font-size:1.1rem}
+.top{display:flex;gap:1rem;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:1rem 1.25rem;border-bottom:1px solid var(--line);background:var(--panel)}
+.top{border-top:4px solid var(--acc)}
+.brand{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1.5rem;display:flex;align-items:center;gap:.5rem}
+.brand::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--acc)}
+.hero{background:#182B49;color:#F8F9FA;border-radius:12px;padding:1.6rem 1.5rem;margin-bottom:1.5rem;border-left:6px solid #FF6B35}
+.hero h1{font-size:clamp(1.5rem,5vw,2.2rem);margin-bottom:.4rem}
+.hero p{margin:0;color:#C9D3E3;max-width:56ch}
+.tok{background:var(--toksoft);color:var(--tok);font-weight:700;border-radius:99px;padding:.3rem .9rem}
+nav{display:flex;gap:.25rem;overflow-x:auto;padding:.5rem 1.25rem;background:var(--panel);border-bottom:1px solid var(--line)}
+nav button{border:0;background:none;color:var(--mute);font:inherit;font-weight:500;padding:.5rem .9rem;border-radius:8px;cursor:pointer;white-space:nowrap}
+nav button.on{background:var(--accsoft);color:var(--acctext);font-weight:700;box-shadow:inset 0 -3px 0 var(--acc)}
+main{max-width:980px;margin:0 auto;padding:1.5rem 1.25rem 4rem}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.25rem;margin-bottom:1rem}
+.grid .card{margin:0}
+.muted{color:var(--mute);font-size:.92rem}
+label{display:block;font-weight:500;margin:.8rem 0 .25rem}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:.55rem .7rem}
+textarea{min-height:130px;font-family:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.btn{font:inherit;font-weight:700;border:0;border-radius:8px;background:var(--acc);color:#182B49;padding:.65rem 1.1rem;cursor:pointer;margin-top:1rem}
+.btn.alt{background:var(--toksoft);color:var(--tok)}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem}
+.chips label{margin:0;font-weight:400;display:flex;align-items:center;gap:.35rem;border:1px solid var(--line);border-radius:99px;padding:.25rem .7rem;cursor:pointer;width:auto}
+.chips input{width:auto}
+.row{display:grid;grid-template-columns:110px 1fr 56px;gap:.6rem;align-items:center;margin:.4rem 0;font-size:.92rem}
+.bar{height:14px;background:var(--bg);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green);border-radius:4px}
+.bar i.t{background:var(--acc)}
+.kpi{display:flex;gap:1.5rem;flex-wrap:wrap;margin:.5rem 0 1rem}
+.kpi b{display:block;font:700 1.9rem "Bricolage Grotesque",sans-serif}
+.plan li{margin:.5rem 0}
+.tag{display:inline-block;font-size:.8rem;border-radius:99px;padding:.1rem .6rem;background:var(--accsoft);color:var(--acctext);margin-right:.3rem}
+.note h3{display:flex;justify-content:space-between;gap:.5rem}
+.lock{color:var(--mute)}
+pre.guide{white-space:pre-wrap;font:inherit;margin:0}
+.toast{position:fixed;left:50%;bottom:calc(1.2rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.6rem 1.1rem;border-radius:8px;max-width:90%;z-index:20}
+.hide{display:none}
+@media (max-width:520px){.row{grid-template-columns:84px 1fr 48px}}
+</style>
+</head>
+<body>
+<div class="top"><span class="brand">Discite</span><span class="tok" id="tok"></span></div>
+<nav id="nav"></nav>
+<main id="main"></main>
+<div class="toast hide" id="toast"></div>
+<script>
+const HB=["<3 h","3-6 h","6-10 h","10+ h"],SB=["1 week before","2-3 weeks before","1 month+ before"];
+const COURSES={
+"Calculus 1":{topics:["Limits","Derivatives","Integrals","Series"],res:["Slides","Textbook","Past exams","YouTube","Study group"],base:21,p:[.3,.35,.78,.6]},
+"Physics 1":{topics:["Kinematics","Dynamics","Energy","Rotation"],res:["Slides","Textbook","Past exams","YouTube","Study group"],base:22,p:[.2,.4,.5,.7]},
+"Intro to Programming":{topics:["Loops","Functions","Recursion","Pointers"],res:["Slides","Textbook","Past exams","YouTube","Study group"],base:23,p:[.15,.3,.65,.7]}};
+const NOTE_HINT="# Limits\n- A limit describes the value a function approaches\n# Integrals\n- Integration by parts: ∫u dv = uv − ∫v du";
+let S={tokens:10,reviews:[],notes:[],unlocked:[]},view="courses",course="Calculus 1",guide="",planOut="";
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function seed(){const r=rng(7);let id=1;
+for(const c in COURSES){const C=COURSES[c];for(let i=0;i<30;i++){const h=Math.floor(r()*4),s=Math.floor(r()*3);
+const res=C.res.filter(()=>r()<.4);const g=C.base+h*1.7+s*1.2+(res.includes("Past exams")?1.8:0)+(r()-.5)*3;
+S.reviews.push({course:c,grade:Math.max(18,Math.min(30,Math.round(g))),diff:Math.min(5,Math.max(1,Math.round(3+C.p.reduce((a,b)=>a+b,0)/2+(r()-.5)*2))),h,s,res,topics:C.topics.filter((t,k)=>r()<C.p[k])})}}
+const N=[["Calculus 1","Anna, MSc Math",30,"Complete Calculus summary","# Limits\n- A limit describes the value a function approaches\n- Use L’Hôpital’s rule for 0/0 forms\n# Derivatives\n- Chain rule: (f∘g)’ = f’(g)·g’\n- Check critical points where f’ = 0\n# Integrals\n- Integration by parts: ∫u dv = uv − ∫v du\n- Always try substitution first\n- Draw the area before computing\n# Series\n- Ratio test decides absolute convergence"],
+["Calculus 1","Luca, Engineering",29,"Exam-focused notes","# Limits\n- Use L’Hôpital’s rule for 0/0 forms\n- Memorise the standard limits\n# Integrals\n- Integration by parts: ∫u dv = uv − ∫v du\n- Partial fractions for rational functions\n- Always try substitution first\n# Series\n- Ratio test decides absolute convergence\n- Compare with geometric series"],
+["Calculus 1","Sara, Physics",28,"Integrals and series deep dive","# Derivatives\n- Chain rule: (f∘g)’ = f’(g)·g’\n- Implicit differentiation for curves\n# Integrals\n- Always try substitution first\n- Improper integrals need a limit\n# Series\n- Compare with geometric series\n- Alternating series: check that terms decrease"],
+["Calculus 1","Marco, Economics",24,"My calculus notes","# Limits\n- A limit describes the value a function approaches\n# Derivatives\n- Memorise the table of derivatives"],
+["Intro to Programming","Giulia, CS",30,"Recursion made simple","# Recursion\n- Every recursion needs a base case\n- Trace small inputs on paper\n# Pointers\n- A pointer stores a memory address\n- Always initialise pointers"]];
+N.forEach(n=>S.notes.push({id:id++,course:n[0],author:n[1],grade:n[2],title:n[3],text:n[4],owner:false}))}
+function load(){try{const x=JSON.parse(localStorage.getItem("sp1"));if(x&&x.reviews)S=x}catch(e){}if(!S.reviews.length)seed()}
+function save(){try{localStorage.setItem("sp1",JSON.stringify(S))}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.remove("hide");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.add("hide"),2800)}
+const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+const bars=(rows,max,cls)=>rows.map(r=>`<div class="row"><span>${esc(r[0])}</span><div class="bar"><i class="${cls||""}" style="width:${Math.max(2,r[1]/max*100)}%"></i></div><b>${r[2]}</b></div>`).join("");
+function stats(c){const R=S.reviews.filter(r=>r.course===c),C=COURSES[c];
+const byH=HB.map((l,i)=>{const g=R.filter(r=>r.h===i).map(r=>r.grade);return[l,avg(g),g.length]});
+const byS=SB.map((l,i)=>{const g=R.filter(r=>r.s===i).map(r=>r.grade);return[l,avg(g),g.length]});
+const topics=C.topics.map(t=>[t,R.filter(r=>r.topics.includes(t)).length/R.length]);
+const res=C.res.map(x=>{const u=R.filter(r=>r.res.includes(x)),n=R.filter(r=>!r.res.includes(x));return{x,share:u.length/R.length,gain:u.length&&n.length?avg(u.map(r=>r.grade))-avg(n.map(r=>r.grade)):0}});
+return{R,n:R.length,grade:avg(R.map(r=>r.grade)),diff:avg(R.map(r=>r.diff)),byH,byS,topics,res}}
+function courseSel(){return`<select onchange="course=this.value;guide='';planOut='';aiPlanOut='';aiGuideOut='';render()">${Object.keys(COURSES).map(c=>`<option ${c===course?"selected":""}>${c}</option>`).join("")}</select>`}
+function vCourses(){const s=stats(course);
+return`<div class="hero"><h1>Know how to pass before you start.</h1><p>What students who already passed your course studied, how long, and what worked. This prototype runs on demo data.</p></div><h2>How students passed ${esc(course)}</h2><div style="max-width:320px">${courseSel()}</div>
+<div class="kpi"><div><b>${s.n}</b><span class="muted">reviews</span></div><div><b>${s.grade.toFixed(1)}</b><span class="muted">average grade</span></div><div><b>${s.diff.toFixed(1)}/5</b><span class="muted">difficulty</span></div></div>
+<div class="grid">
+<div class="card"><h3>Average grade by weekly study time</h3>${bars(s.byH.map(r=>[r[0],r[1]-17,r[1].toFixed(1)]),13)}</div>
+<div class="card"><h3>Average grade by when they started</h3>${bars(s.byS.map(r=>[r[0],r[1]-17,r[1].toFixed(1)]),13)}</div>
+<div class="card"><h3>Hardest topics</h3><p class="muted">Share of students who struggled with each</p>${bars(s.topics.map(t=>[t[0],t[1],Math.round(t[1]*100)+"%"]),1,"t")}</div>
+<div class="card"><h3>Grade gain from each resource</h3><p class="muted">Average grade with it vs without it</p>${bars(s.res.map(r=>[r.x,Math.max(0,r.gain+.5),(r.gain>=0?"+":"")+r.gain.toFixed(1)]),4)}</div></div>
+<div class="card" style="margin-top:1rem"><h3>Get your approach</h3><p class="muted">The plan is built from what students with your target grade actually did.</p>
+<div class="grid"><div><label>Hours you can study per week</label><input id="ph" type="number" min="1" max="40" value="8"></div><div><label>Target grade (18-30)</label><input id="pg" type="number" min="18" max="30" value="27"></div><div><label>Weeks until the exam</label><input id="pw" type="number" min="2" max="20" value="12"></div></div>
+<button class="btn" onclick="makePlan()">Build my plan</button><div id="plan">${planOut}${aiPlanOut}</div></div>`}
+function makePlan(){const s=stats(course),h=+ph.value||8,g=+pg.value||27,w=Math.max(2,+pw.value||12);
+const top=s.R.filter(r=>r.grade>=g);if(top.length<3){planOut=`<p>Not enough students reached ${g}+ yet (${top.length}). Try a lower target.</p>`;render();return}
+const mid=[2,4.5,8,12],ht=avg(top.map(r=>mid[r.h])),bestS=s.byS.slice().sort((a,b)=>b[1]-a[1])[0][0];
+const rs=s.res.filter(r=>r.share>.15).sort((a,b)=>b.gain-a.gain).slice(0,2).map(r=>r.x);
+const po=s.res.find(r=>r.x==="Past exams").gain>.5,tw=s.topics.map(t=>[t[0],1+t[1]]);
+const study=Math.round(w*(po?.7:1)),sum=tw.reduce((a,t)=>a+t[1],0);let wk=1,out="";
+tw.forEach(t=>{const n=Math.max(1,Math.round(study*t[1]/sum));out+=`<li><b>Weeks ${wk}-${Math.min(w,wk+n-1)}:</b> ${esc(t[0])}${s.topics.find(x=>x[0]===t[0])[1]>.5?" (hard topic, add 2 extra hours)":""}</li>`;wk+=n});
+if(po&&wk<=w)out+=`<li><b>Weeks ${wk}-${w}:</b> timed past exams only</li>`;
+const gap=ht-h;aiPlanOut="";
+lastStats={byHours:s.byH.map(r=>({label:r[0],avgGrade:+r[1].toFixed(1),n:r[2]})),byStart:s.byS.map(r=>({label:r[0],avgGrade:+r[1].toFixed(1),n:r[2]})),hardTopics:s.topics.map(t=>({topic:t[0],shareStruggled:+t[1].toFixed(2)})),resourceGain:s.res.map(r=>({resource:r.x,share:+r.share.toFixed(2),gain:+r.gain.toFixed(1)}))};
+lastPlan={hoursPerWeek:h,targetGrade:g,weeksToExam:w,studentsAtTarget:top.length,avgHoursOfTopStudents:+ht.toFixed(1),bestStart:bestS,bestResources:rs,ruleBasedSchedule:out.replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim()};
+planOut=`<h3 style="margin-top:1.2rem">Your plan, based on ${top.length} students who scored ${g}+</h3>
+<p>${gap>1?`Those students studied about ${ht.toFixed(0)} h per week, so you have a gap of ${gap.toFixed(0)} h. Use the extra weeks or lower the target.`:`Your ${h} h per week matches what students with ${g}+ did (about ${ht.toFixed(0)} h).`}</p>
+<ol class="plan">${out}</ol><p><b>Start:</b> ${bestS} gave the best grades.<br><b>Best resources:</b> ${rs.map(esc).join(", ")}.</p>
+<p class="muted">Rule-based plan from aggregated data. The button below asks a language model to write it in natural language from these numbers.</p><button class="btn alt" onclick="aiPlan()">Rewrite with AI</button>`;render()}
+function vReview(){const C=COURSES[course];
+return`<h2>Share your experience</h2><p class="muted">Takes 2 minutes. You earn 5 tokens.</p><div class="card">
+<label>Course</label>${courseSel()}
+<label>Final grade (18-30)</label><input id="rg" type="number" min="18" max="30" value="27">
+<label>Difficulty</label><select id="rd">${[1,2,3,4,5].map(n=>`<option>${n}</option>`).join("")}</select>
+<label>Study hours per week</label><select id="rh">${HB.map((l,i)=>`<option value="${i}">${l}</option>`).join("")}</select>
+<label>When did you start studying?</label><select id="rs">${SB.map((l,i)=>`<option value="${i}">${l}</option>`).join("")}</select>
+<label>Hardest topics</label><div class="chips">${C.topics.map(t=>`<label><input type="checkbox" name="rt" value="${esc(t)}">${esc(t)}</label>`).join("")}</div>
+<label>Resources that helped</label><div class="chips">${C.res.map(t=>`<label><input type="checkbox" name="rr" value="${esc(t)}">${esc(t)}</label>`).join("")}</div>
+<label>Your best tip for new students</label><textarea id="rt" style="min-height:80px"></textarea>
+<label style="display:flex;gap:.5rem;font-weight:400"><input id="rc" type="checkbox" style="width:auto;margin-top:.3rem">My answers can be used anonymously to help other students.</label>
+<button class="btn" onclick="sendReview()">Submit review</button></div>`}
+function sendReview(){if(!rc.checked){toast("Tick the consent box to submit.");return}
+const v=n=>[...document.querySelectorAll(`[name=${n}]:checked`)].map(e=>e.value);
+S.reviews.push({course,grade:+rg.value,diff:+rd.value,h:+rh.value,s:+rs.value,res:v("rr"),topics:v("rt"),tip:rt.value});
+S.tokens+=5;save();toast("Review added. +5 tokens");go("courses")}
+function parse(t){const m={};let cur="General";t.split("\n").forEach(l=>{l=l.trim();if(!l)return;if(l[0]==="#"){cur=l.replace(/^#+\s*/,"")||"General";return}const b=l.replace(/^[-*•]\s*/,"");(m[cur]=m[cur]||[]).push(b)});return m}
+function vNotes(){const L=S.notes.filter(n=>n.course===course);
+return`<h2>Notes library</h2><div style="max-width:320px">${courseSel()}</div><p class="muted">Upload notes to earn tokens: +10 for any notes, +5 more if you scored 27 or higher. Unlocking a student’s notes costs 5.</p>
+<div class="card"><h3>Upload your notes</h3>
+<label>Title</label><input id="nt"><label>Your grade in this course (18-30)</label><input id="ng" type="number" min="18" max="30" value="27">
+<label>Notes (use # for topics and - for points)</label><textarea id="nx" placeholder="${esc(NOTE_HINT)}"></textarea>
+<label>Or load a .txt / .md file</label><input type="file" accept=".txt,.md" onchange="readF(this)">
+<button class="btn" onclick="addNote()">Upload and earn tokens</button></div>
+${L.map(n=>{const open=n.owner||S.unlocked.includes(n.id),p=parse(n.text),tp=Object.keys(p);
+return`<div class="card note"><h3><span>${esc(n.title)}</span><span class="tag">Grade ${n.grade}</span></h3><p class="muted">${esc(n.author)} · ${tp.length} topics · ${tp.reduce((a,k)=>a+p[k].length,0)} points</p>
+${open?`<p><b>Summary:</b> ${tp.map(k=>`<b>${esc(k)}</b>: ${esc(p[k][0])}`).join("; ")}</p><pre class="guide">${esc(n.text)}</pre>`:`<p class="lock">Topics: ${tp.map(esc).join(", ")}</p><button class="btn alt" onclick="unlock(${n.id})">Unlock for 5 tokens</button>`}</div>`}).join("")||'<p class="muted">No notes yet for this course. Upload the first ones.</p>'}`}
+function readF(el){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{nx.value=r.result;if(!nt.value)nt.value=f.name.replace(/\.\w+$/,"")};r.readAsText(f)}
+function addNote(){if(!nx.value.trim()||!nt.value.trim()){toast("Add a title and some notes first.");return}
+const g=+ng.value,gain=10+(g>=27?5:0);S.notes.push({id:Date.now(),course,author:"You",grade:g,title:nt.value,text:nx.value,owner:true});S.tokens+=gain;save();toast(`Uploaded. +${gain} tokens`);render()}
+function unlock(id){if(S.tokens<5){toast("Not enough tokens. Upload notes or review a course to earn more.");return}S.tokens-=5;S.unlocked.push(id);save();render()}
+function vBest(){const src=S.notes.filter(n=>n.course===course&&n.grade>=27);
+return`<h2>Best notes, combined</h2><div style="max-width:320px">${courseSel()}</div>
+<p class="muted">Merges notes from students who scored 27 or higher. Points that several top students wrote rank first. Costs 10 tokens.</p>
+<div class="card"><p>${src.length} top-grade notes available for ${esc(course)}.</p><button class="btn" onclick="mk()">Generate combined notes (10 tokens)</button></div>${guide}${aiGuideOut}`}
+function mk(){const src=S.notes.filter(n=>n.course===course&&n.grade>=27);if(src.length<2){toast("Need at least 2 top-grade notes for this course.");return}
+if(S.tokens<10){toast("Not enough tokens. Upload notes to earn more.");return}
+const T={};src.forEach(n=>{const p=parse(n.text);for(const k in p){const t=T[k]=T[k]||{c:0,b:{}};t.c++;p[k].forEach(b=>{const key=b.toLowerCase().replace(/[^a-z0-9]/g,"");const e=t.b[key]=t.b[key]||{t:b,c:0};e.c++})}});
+aiGuideOut="";lastSrc=src.map(n=>({grade:n.grade,text:n.text}));
+const out=Object.entries(T).sort((a,b)=>b[1].c-a[1].c).map(([k,t])=>`<h3>${esc(k)} <span class="muted">(${t.c}/${src.length} notes)</span></h3><ul>${Object.values(t.b).sort((a,b)=>b.c-a.c).map(e=>`<li>${esc(e.t)} <span class="tag">${e.c}/${src.length}</span></li>`).join("")}</ul>`).join("");
+S.tokens-=10;save();guide=`<div class="card"><h3>Combined notes: ${esc(course)}</h3><p class="muted">Built from ${src.length} notes with grades ${src.map(n=>n.grade).join(", ")}. The tag shows how many notes include each point. Prototype uses rule-based merging; the button below asks a language model to rewrite it into one clean study guide.</p>${out}<button class="btn alt" onclick="aiGuide()">Rewrite as one study guide with AI</button></div>`;render()}
+let lastPlan=null,lastStats=null,lastSrc=[],aiPlanOut="",aiGuideOut="";
+async function callAI(path,body){try{const r=await fetch(path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});const j=await r.json();if(!r.ok)throw new Error(j.error||"AI error");return j.text}catch(e){toast("AI not available. Run the local server: python server.py (with ANTHROPIC_API_KEY set).");return null}}
+async function aiPlan(){if(!lastPlan)return;toast("Writing your plan...");const t=await callAI("/api/ai-plan",{course,profile:lastPlan,stats:lastStats});if(t){aiPlanOut=`<div class="card"><h3>AI-written plan</h3><pre class="guide">${esc(t)}</pre><p class="muted">Written by a language model from the numbers above. Check it against the data.</p></div>`;render()}}
+async function aiGuide(){if(!lastSrc.length)return;toast("Writing the study guide...");const t=await callAI("/api/ai-guide",{course,notes:lastSrc});if(t){aiGuideOut=`<div class="card"><h3>AI study guide: ${esc(course)}</h3><pre class="guide">${esc(t)}</pre><p class="muted">Written by a language model from the notes above. It should only contain points from those notes.</p></div>`;render()}}
+const V={courses:["Course insights",vCourses],review:["Add a review",vReview],notes:["Notes",vNotes],best:["Best notes",vBest]};
+function go(v){view=v;render()}
+function render(){document.getElementById("tok").textContent=`${S.tokens} tokens`;
+document.getElementById("nav").innerHTML=Object.keys(V).map(k=>`<button class="${k===view?"on":""}" onclick="go('${k}')">${V[k][0]}</button>`).join("");
+document.getElementById("main").innerHTML=V[view][1]()}
+load();render();
+</script>
+</body>
+</html>
