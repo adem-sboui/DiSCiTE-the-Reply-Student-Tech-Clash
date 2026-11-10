@@ -16,9 +16,6 @@ Students prepare for exams without knowing what actually worked for others.
 DiSCiTE collects anonymous experiences from students who already passed a
 course and turns them into guidance for the next student.
 
-## My contribution
-[WRITE ONE TRUE SENTENCE HERE, and say whether the prototype was built at
-the hackathon or refined afterwards]
 
 ## Features
 - **Course insights:** average grade by weekly study time and by start date,
